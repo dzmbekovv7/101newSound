@@ -222,33 +222,33 @@ export function AboutPage() {
   <div className="lg:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-10">
 
     {[{
-      name: "Lena Williams",
-      role: "Lead Vocalist",
-      desc: "Powerful singer with a soulful voice, delivering emotion and energy in every performance.",
-      img: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?q=80&w=150&h=150&auto=format&fit=crop&crop=face",
-      accentFrom: "from-purple-600",
-      accentTo: "to-pink-500",
+     name: "Ahmadov Usuf",
+  role: "Lead Vocalist",
+  desc: "Powerful singer with a soulful voice, delivering emotion and energy in every performance.",
+  img: "https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=150&h=150&auto=format&fit=crop&crop=face", // женское фото
+  accentFrom: "from-purple-600",
+  accentTo: "to-pink-500",
     },{
-      name: "Marcus Lee",
-      role: "Music Producer",
-      desc: "Crafts unique sounds and arrangements, blending genres to create fresh music vibes.",
-      img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=150&h=150&auto=format&fit=crop&crop=face",
-      accentFrom: "from-green-400",
-      accentTo: "to-teal-500",
+      name: "Andreeva Maria",
+  role: "Music Producer",
+  desc: "Crafts unique sounds and arrangements, blending genres to create fresh music vibes.",
+  img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=150&h=150&auto=format&fit=crop&crop=face", // мужское фото
+  accentFrom: "from-green-400",
+  accentTo: "to-teal-500",
     },{
-      name: "Sophie Chen",
-      role: "Sound Engineer",
-      desc: "Expert in mixing and mastering to ensure every track sounds crisp and perfect.",
-      img: "https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=150&h=150&auto=format&fit=crop&crop=face",
-      accentFrom: "from-pink-500",
-      accentTo: "to-rose-500",
+  name: "Sophie Chen",
+  role: "Sound Engineer",
+  desc: "Expert in mixing and mastering to ensure every track sounds crisp and perfect.",
+  img: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?q=80&w=150&h=150&auto=format&fit=crop&crop=face", // женское фото
+  accentFrom: "from-pink-500",
+  accentTo: "to-rose-500",
     },{
-      name: "David Kim",
-      role: "Guitarist",
-      desc: "Versatile musician adding depth and emotion with his masterful guitar skills.",
-      img: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=150&h=150&auto=format&fit=crop&crop=face",
-      accentFrom: "from-blue-500",
-      accentTo: "to-indigo-600",
+    name: "Lana Rose",
+  role: "Guitarist",
+  desc: "Versatile musician adding depth and emotion with his masterful guitar skills.",
+  img: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=150&h=150&auto=format&fit=crop&crop=face", // мужское фото
+  accentFrom: "from-blue-500",
+  accentTo: "to-indigo-600",
     }].map(({name, role, desc, img, accentFrom, accentTo}, i) => (
       <div key={i} className="relative bg-gray-50 rounded-2xl p-8 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col items-center text-center">
         {/* Акцентная полоска сверху */}
