@@ -26,16 +26,17 @@ export function CategoriesSection() {
 			<div className="relative z-10 max-w-7xl mx-auto px-6">
 				{isLoading ? (
 					<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-						{Array.from({ length: 8 }).map((_, i) => (
-							<div
-								key={i}
-								className="h-48 bg-gray-800/40 animate-pulse rounded-[50%_50%_30%_70%/60%_30%_70%_40%] shadow-inner"
-							/>
-						))}
+					{Array.from({ length: 8 }).map((_, _i) => (
+  <div
+    key={_i}
+    className="h-48 bg-gray-800/40 animate-pulse rounded-[50%_50%_30%_70%/60%_30%_70%_40%] shadow-inner"
+  />
+))}
+
 					</div>
 				) : (
 					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
-						{categories.map((category, i) => (
+						{categories.map((category) => (
 							<a
 								key={category}
 								href={`/blog?type=${encodeURIComponent(category || '')}`}
