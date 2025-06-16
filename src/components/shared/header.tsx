@@ -1,28 +1,27 @@
 import { useLocation, Link } from 'react-router';
 import { Container } from './container';
-import { useMemo } from 'react';
-import { useGetArticles } from '@/hooks/useArticles';
+import { useMemo, useState } from 'react';
 
 const LINKS = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
   { label: 'Blog', href: '/blog' },
   { label: 'Contacts', href: '/contacts' },
-    { label: 'Privacy', href: '/privacy-policy' },
+  { label: 'Privacy', href: '/privacy-policy' },
 ];
 
 export function Header() {
   const location = useLocation();
-  const isHome = useMemo(() => location.pathname === '/', [location.pathname]);
+  const isSpecialBg = useMemo(() => location.pathname === '/' || location.pathname === '/blog' || location.pathname === '/privacy-policy', [location.pathname]);
 
-  const headerBg = isHome
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const headerBg = isSpecialBg
     ? 'bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-900'
     : 'bg-white';
 
-  const textColor = isHome ? 'text-white' : 'text-gray-900';
-  const linkHoverColor = isHome ? 'hover:text-violet-400' : 'hover:text-indigo-600';
-
-  const { data: articles } = useGetArticles();
+  const textColor = isSpecialBg ? 'text-white' : 'text-gray-900';
+  const linkHoverColor = isSpecialBg ? 'hover:text-violet-400' : 'hover:text-indigo-600';
 
   return (
     <header className={`relative overflow-hidden transition-colors duration-500 ${headerBg}`}>
@@ -36,51 +35,91 @@ export function Header() {
       </div>
 
       <Container>
-        <div className="relative z-10 py-6 lg:py-10 flex flex-col items-center space-y-6">
-          <div className="relative flex items-center justify-center w-full">
-            {/* Left links */}
-            <nav className="flex gap-6 absolute left-0">
-              {LINKS.slice(0, 2).map((item, index) => (
-                <Link
-                  key={item.label}
-                  to={item.href}
-                  className={`relative px-4 py-2 rounded-full text-sm font-semibold ${textColor} ${linkHoverColor} bg-gradient-to-r from-purple-500/20 to-pink-500/20 hover:scale-105 transition-all`}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
+        <div className="relative z-10 py-6 lg:py-10 flex items-center justify-between">
+          {/* Left links (2 first) */}
+          <nav className="hidden md:flex gap-6">
+            {LINKS.slice(0, 2).map((item) => (
+              <Link
+                key={item.label}
+                to={item.href}
+                className={`relative px-4 py-2 rounded-full text-sm font-semibold ${textColor} ${linkHoverColor} bg-gradient-to-r from-purple-500/20 to-pink-500/20 hover:scale-105 transition-all`}
+                onClick={() => setMenuOpen(false)}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
 
-            {/* Logo */}
-            <div className="flex flex-col items-center">
-              <div className={`text-3xl font-black leading-none ${textColor}`}>101newSound</div>
-              <div className="text-sm font-bold leading-none mt-1 text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-pink-500">
-                MusicCollective
-              </div>
+          {/* Logo center */}
+          <div className="flex flex-col items-center">
+            <div className={`text-3xl font-black leading-none ${textColor}`}>101newSound</div>
+            <div className="text-sm font-bold leading-none mt-1 text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-pink-500">
+              MusicCollective
             </div>
-
-            {/* Right links */}
-            <nav className="flex gap-6 absolute right-0">
-              {LINKS.slice(2, 5).map((item, index) => (
-                <Link
-                  key={item.label}
-                  to={item.href}
-                  className={`relative px-4 py-2 rounded-full text-sm font-semibold ${textColor} ${linkHoverColor} bg-gradient-to-r from-pink-500/20 to-violet-500/20 hover:scale-105 transition-all`}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
           </div>
 
-          {/* Accent divider */}
-          <div className="flex justify-center space-x-4">
-            <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-violet-500 to-transparent"></div>
-            <div className="w-1 h-1 bg-violet-500 transform rotate-45"></div>
-            <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-pink-500 to-transparent"></div>
-          </div>
+          {/* Right links (3 last) */}
+          <nav className="hidden md:flex gap-6">
+            {LINKS.slice(2).map((item) => (
+              <Link
+                key={item.label}
+                to={item.href}
+                className={`relative px-4 py-2 rounded-full text-sm font-semibold ${textColor} ${linkHoverColor} bg-gradient-to-r from-pink-500/20 to-violet-500/20 hover:scale-105 transition-all`}
+                onClick={() => setMenuOpen(false)}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Mobile Hamburger Button */}
+          <button
+            className={`md:hidden flex flex-col justify-center items-center gap-1 w-8 h-8 z-50 focus:outline-none ${
+              menuOpen ? 'text-pink-400' : textColor
+            }`}
+            aria-label="Toggle menu"
+            onClick={() => setMenuOpen((prev) => !prev)}
+          >
+            <span
+              className={`block w-6 h-0.5 rounded bg-current transform transition duration-300 ${
+                menuOpen ? 'rotate-45 translate-y-1.5' : ''
+              }`}
+            ></span>
+            <span
+              className={`block w-6 h-0.5 rounded bg-current transition duration-300 ${
+                menuOpen ? 'opacity-0' : ''
+              }`}
+            ></span>
+            <span
+              className={`block w-6 h-0.5 rounded bg-current transform transition duration-300 ${
+                menuOpen ? '-rotate-45 -translate-y-1.5' : ''
+              }`}
+            ></span>
+          </button>
         </div>
       </Container>
+
+      {/* Mobile Menu */}
+      <div
+        className={`fixed top-0 left-0 w-full h-full bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-900 z-40 transform ${
+          menuOpen ? 'translate-x-0' : '-translate-x-full'
+        } transition-transform duration-300 ease-in-out md:hidden`}
+      >
+        <Container>
+          <nav className="flex flex-col items-center justify-center min-h-screen gap-8">
+            {LINKS.map((item) => (
+              <Link
+                key={item.label}
+                to={item.href}
+                className="text-2xl font-semibold text-white hover:text-pink-400 transition"
+                onClick={() => setMenuOpen(false)}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+        </Container>
+      </div>
 
       {/* CSS Animations */}
       <style>{`
